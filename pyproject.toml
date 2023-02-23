@@ -1,0 +1,110 @@
+[project]
+name = "skeval"
+version = "0.1.0"
+description = "Minimal package to evaluate machine learning models with scikit-learn"
+authors = [
+    {name = "baggiponte", email = "57922983+baggiponte@users.noreply.github.com"},
+]
+dependencies = []
+requires-python = ">=3.9"
+readme = "README.md"
+license = {text = "MIT"}
+
+[tool.pdm.dev-dependencies]
+lint = [
+    "pre-commit>=3.1.0",
+    "ruff>=0.0.252",
+    "black>=23.1.0",
+    "deptry>=0.8.0",
+]
+test = [
+    "pytest>=7.2.1",
+    "pytest-cov>=4.0.0",
+]
+docs = [
+    "mkdocs>=1.4.2",
+    "mkdocs-material>=9.0.14",
+    "mkdocstrings[python]>=0.20.0",
+]
+release = [
+    "commitizen>=2.42.0",
+]
+
+[tool.pdm.build]
+excludes = ["**/.DS_Store"]
+package-dir = "src"
+source-includes = ["tests", "README.md"] # in the source distribution only
+
+[tool.pdm.scripts]
+dbuild = ["mkdocs", "build"]
+dserve = ["mkdocs", "serve", "--livereload"]
+
+deps = ["deptry", "src"]
+fmt = ["black", "src"]
+lint = ["ruff", "check", "src"]
+check = {"composite" = ["fmt", "deps", "lint"]}
+
+test = ["pytest"]
+
+main = ["python", "-m", "main"]
+
+reqs = ["pdm", "export", "--format=requirements", "--prod"]
+wheel = {shell = "pdm build --no-sdist"}
+
+[tool.ruff]
+src = ["src"]
+target-version = "py39"
+line-length = 88
+
+select = [
+  # default
+  "E",      # pycodestyle error
+  "F",      # flake8 error
+  # extra
+  "A",      # builtin shadowing
+  "B",      # flake8 bugbear
+  "BLE",    # aboid bare excepts
+  "C4",     # simplify comprehensions
+  "D",      # pydocstyle
+  "DTZ",    # datetime errors
+  "FBT",    # avoid boolean trap
+  "G",      # logging format
+  "I",      # isort imports
+  "RET",    # return values
+  "S",      # bandit
+  "UP",     # upgade syntax
+  "W",      # pycodestyle warning
+  "YTT",    # wrong usage of sys.info
+]
+fix = true
+ignore = ["D107"]
+
+  [tool.ruff.per-file-ignores]
+  "__init__.py" = ["F401", "I002"]
+
+  [tool.ruff.pydocstyle]
+  convention = "google"
+
+  [tool.ruff.pycodestyle]
+  max-doc-length = 88
+
+  [tool.ruff.isort]
+  required-imports = ["from __future__ import annotations"]
+
+[tool.mypy]
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+pythonpath = "src"
+
+[tool.pyright]
+exclude = [ ".venv" ]
+venvPath = "."
+venv = ".venv"
+
+[build-system]
+requires = ["pdm-pep517>=1.0"]
+build-backend = "pdm.pep517.api"
+
