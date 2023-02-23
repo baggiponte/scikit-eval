@@ -10,6 +10,10 @@ requires-python = ">=3.9"
 readme = "README.md"
 license = {text = "MIT"}
 
+[project.urls]
+"Homepage" = "https://github.com/baggiponte/skeval"
+"Bug Tracker" = "https://github.com/baggiponte/skeval/issues"
+
 [tool.pdm.dev-dependencies]
 lint = [
     "pre-commit>=3.1.0",
