@@ -1,5 +1,5 @@
 [project]
-name = "skeval"
+name = "scikit-eval"
 version = "0.1.0"
 description = "Minimal package to evaluate machine learning models with scikit-learn"
 authors = [
@@ -11,8 +11,8 @@ readme = "README.md"
 license = {text = "MIT"}
 
 [project.urls]
-"Homepage" = "https://github.com/baggiponte/skeval"
-"Bug Tracker" = "https://github.com/baggiponte/skeval/issues"
+"Homepage" = "https://github.com/baggiponte/scikit-eval"
+"Bug Tracker" = "https://github.com/baggiponte/scikit-eval/issues"
 
 [tool.pdm.dev-dependencies]
 lint = [
@@ -38,22 +38,6 @@ release = [
 excludes = ["**/.DS_Store"]
 package-dir = "src"
 source-includes = ["tests", "README.md"] # in the source distribution only
-
-[tool.pdm.scripts]
-dbuild = ["mkdocs", "build"]
-dserve = ["mkdocs", "serve", "--livereload"]
-
-deps = ["deptry", "src"]
-fmt = ["black", "src"]
-lint = ["ruff", "check", "src"]
-check = {"composite" = ["fmt", "deps", "lint"]}
-
-test = ["pytest"]
-
-main = ["python", "-m", "main"]
-
-reqs = ["pdm", "export", "--format=requirements", "--prod"]
-wheel = {shell = "pdm build --no-sdist"}
 
 [tool.ruff]
 src = ["src"]
